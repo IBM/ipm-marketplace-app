@@ -1,8 +1,9 @@
+/*
 #
 # Copyright 2020- IBM Inc. All rights reserved
 # SPDX-License-Identifier: Apache2.0
 #
-
+*/
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -51,9 +52,10 @@ export default function PlansComponent(props) {
                 setLoader(false);
                 if (response.data) {
                     const plans = response.data.plans.filter((data) => {
-                        return data.hasOwnProperty(
-                            "supportedByIbmConfigurator"
-                        );
+                        if(data.hasOwnProperty("supportedByIbmConfigurator") && data["supportedByIbmConfigurator"]=== true)
+                          {
+                              return data.hasOwnProperty("id");
+                         }
                     });
                     setPlans(plans);
                 }
